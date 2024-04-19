@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
+using PasswordEncryptionLibrary;
+using System.Runtime;
 
 namespace FinalProjectEvents
 {
@@ -58,6 +60,7 @@ namespace FinalProjectEvents
             XmlNode usernameNode = xmlDoc.CreateElement("Username");
             usernameNode.InnerText = username;
             XmlNode passwordNode = xmlDoc.CreateElement("Password");
+            //string encryptedpass = PasswordEncryptor.Encrypt(password);
             passwordNode.InnerText = password;
             XmlNode emailNode = xmlDoc.CreateElement("Email");
             emailNode.InnerText = email;

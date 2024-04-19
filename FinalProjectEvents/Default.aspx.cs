@@ -9,6 +9,10 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Web.Services;
 using System.Web.Profile;
+using System.Web.Services.Description;
+using System.Web.Http;
+
+
 
 namespace FinalProjectEvents
 {
@@ -30,8 +34,11 @@ namespace FinalProjectEvents
 
         }
 
+       
         [WebMethod]
-        public static object GetWeatherForecast(string areaCode)
+        [AllowAnonymous]
+        
+        public static string GetWeatherForecast(string areaCode)
         {
             string apiKey = "87356ca0fe937eabf1471207df97cf1d";
             string geoApiUrl = $"http://api.openweathermap.org/geo/1.0/zip?zip={areaCode}&appid={apiKey}";
@@ -57,7 +64,10 @@ namespace FinalProjectEvents
                     limit5WeatherList.Add(weatherList[i]);
                 }
 
-                return limit5WeatherList;
+                // Concatenate all the forecast strings into a single string
+                string combinedForecast = string.Join(", ", limit5WeatherList);
+
+                return combinedForecast;
             }
         }
 

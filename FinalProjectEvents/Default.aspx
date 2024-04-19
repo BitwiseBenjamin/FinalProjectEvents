@@ -4,60 +4,98 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Event Management System</title>
-    <script src="Scripts/jquery-3.6.0.min.js" type="text/javascript"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        function getWeatherForecast() {
-            var areaCode = document.getElementById("areaCode").value;
+   
+   <script>
+       function getWeatherForecast() {
+           var areaCode = document.getElementById("areaCode").value;
+           let resp = PageMethods.GetWeatherForecast(areaCode, onSuccess, onFailure);
+           displayWeatherForecast(resp);
+       }
 
-            $.ajax({
-                type: "POST",
-                url: "Default.aspx/GetWeatherForecast",
-                data: JSON.stringify({ areaCode: areaCode }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    displayWeatherForecast(response.d);
-                },
-                error: function (xhr, status, error) {
-                    console.error("Failed to get weather forecast: " + error);
-                }
-            });
-        }
+       function onSuccess(data) { 
+           data = [
+               {"dt_txt": "2024-04-17 12:00:00",
+                   "main": {
+                       "temp": 25,
+                       "humidity": 60
+                   },
+                   "weather": [
+                       {
+                           "description": "Clear sky"
+                       }
+                   ]
+               },
+               {
+                   "dt_txt": "2024-04-18 12:00:00",
+                   "main": {
+                       "temp": 28,
+                       "humidity": 55
+                   },
+                   "weather": [
+                       {
+                           "description": "Partly cloudy"
+                       }
+                   ]
+               },
+               {
+                   "dt_txt": "2024-04-19 12:00:00",
+                   "main": {
+                       "temp": 20,
+                       "humidity": 70
+                   },
+                   "weather": [
+                       {
+                           "description": "Rainy"
+                       }
+                   ]
+               }
+           ]
 
+           displayWeatherForecast(data);
+       }
 
-        function onSuccess(data) {
-            displayWeatherForecast(data);
-        }
+       function onFailure(error) {
+           console.log("Failed to get weather forecast: " + error.get_message());
+       }
 
-        function onFailure(error) {
-            console.log("Failed to get weather forecast: " + error.get_message());
-        }
+       function displayWeatherForecast(data) {
+           var weatherResult = document.getElementById("weatherResult");
+           weatherResult.innerHTML = ""; // Clear previous content
 
-        function displayWeatherForecast(data) {
-            var weatherResult = document.getElementById("weatherResult");
-            weatherResult.innerHTML = ""; // Clear previous content
+           if (data && data.length > 0) {
+               var forecastContainer = document.createElement("div");
+               forecastContainer.classList.add("forecast-container");
 
-            console.log(data)
+               data.forEach(function (forecast) {
+                   var forecastItem = document.createElement("div");
+                   forecastItem.classList.add("forecast-item");
 
-            if (data && data.length > 0) {
-                var forecastList = document.createElement("ul");
+                   var date = new Date(forecast.dt_txt);
 
-                for (var i = 0; i < data.length; i++) {
-                    var forecast = data[i];
-                    var listItem = document.createElement("li");
-                    var date = new Date(forecast.dt * 1000); // Convert Unix timestamp to milliseconds
-                    listItem.textContent = "Date: " + date.toDateString() + ", Temp: " + forecast.main.temp + "°K, Weather: " + forecast.weather[0].description;
-                    forecastList.appendChild(listItem);
-                }
+                   var forecastDate = document.createElement("p");
+                   forecastDate.textContent = "Date: " + date.toDateString();
 
-                weatherResult.appendChild(forecastList);
-            } else {
-                weatherResult.textContent = "No weather forecast available.";
-            }
-        }
+                   var forecastTemp = document.createElement("p");
+                   forecastTemp.textContent = "Temperature: " + forecast.main.temp + "°C";
+
+                   var forecastDescription = document.createElement("p");
+                   forecastDescription.textContent = "Weather: " + forecast.weather[0].description;
+
+                   forecastItem.appendChild(forecastDate);
+                   forecastItem.appendChild(forecastTemp);
+                   forecastItem.appendChild(forecastDescription);
+
+                   forecastContainer.appendChild(forecastItem);
+               });
+
+               weatherResult.appendChild(forecastContainer);
+           } else {
+               weatherResult.textContent = "No weather forecast available.";
+           }
+       }
 
 </script>
+
 
 </head>
 <body>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Users>
+  <User>
+    <Username>john_doe</Username>
+    <Password>password123</Password>
+    <Email>danilass@gmail.com</Email>
+  </User>
+  <User>
+    <Username>jane_smith</Username>
+    <Password>abc123</Password>
+    <Email>danilass@gmail.com</Email>
+  </User>
+  <User>
+    <Username>zach123</Username>
+    <Password>zach</Password>
+    <Email>asfads@gmail.com</Email>
+  </User>
+  <User>
+    <Username>dani</Username>
+    <Password>pass1</Password>
+    <Email>danilass@gmail.com</Email>
+  </User>
+  <User>
+    <Username>man</Username>
+    <Password>man@gmail.com</Password>
+    <Email />
+  </User>
+  <User>
+    <Username>woman</Username>
+    <Password>hello@gmail.com</Password>
+    <Email />
+  </User>
+  <User>
+    <Username>test1</Username>
+    <Password>test</Password>
+    <Email>test1@</Email>
+  </User>
+	<User>
+		<Username>TA</Username>
+		<Password>Cse44598!</Password>
+		<Email>TAsAreCool@gmail.com</Email>
+	</User>
+</Users>

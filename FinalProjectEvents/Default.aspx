@@ -110,6 +110,7 @@
             <!-- Buttons to access Member and Staff pages -->
             <asp:Button ID="btnMemberPage" runat="server" Text="Member Page" OnClick="btnMemberPage_Click" />
             <asp:Button ID="btnStaffPage" runat="server" Text="Staff Page" OnClick="btnStaffPage_Click" />
+            <asp:Button ID="btnEventsPage" runat="server" Text="Events Page" OnClick="btnEventsPage_Click" />
             
             <!-- Service directory -->
             <h2>Service Directory</h2>

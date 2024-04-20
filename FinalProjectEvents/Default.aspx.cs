@@ -86,5 +86,9 @@ namespace FinalProjectEvents
             // Handle staff page button click
             Response.Redirect("Staff.aspx");
         }
+
+        protected void btnEventsPage_Click(object sender, EventArgs e) {
+            Response.Redirect("Events.aspx");
+        }
     }
 }

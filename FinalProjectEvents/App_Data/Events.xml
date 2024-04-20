@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Events>
+  <Event>
+    <Name>Event 1</Name>
+    <Date>2024-04-16</Date>
+    <Location>ASU</Location>
+  </Event>
+  <Event>
+    <Name>Event 2</Name>
+    <Date>2024-04-17</Date>
+    <Location>Tempe</Location>
+  </Event>
+</Events>

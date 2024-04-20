@@ -10,7 +10,7 @@
 namespace FinalProjectEvents {
 
 
-    public partial class _Default {
+    public partial class News {
 
         /// <summary>
         /// form1 control.
@@ -22,48 +22,39 @@ namespace FinalProjectEvents {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// btnMemberPage control.
+        /// NewsFocusLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMemberPage;
+        protected global::System.Web.UI.WebControls.Label NewsFocusLabel;
 
         /// <summary>
-        /// btnStaffPage control.
+        /// NewsFocusTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStaffPage;
+        protected global::System.Web.UI.WebControls.TextBox NewsFocusTextBox;
 
         /// <summary>
-        /// btnEventsPage control.
+        /// BtnGetNews control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEventsPage;
+        protected global::System.Web.UI.WebControls.Button BtnGetNews;
 
         /// <summary>
-        /// gvServiceDirectory control.
+        /// UrlList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvServiceDirectory;
-
-        /// <summary>
-        /// ScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.WebControls.BulletedList UrlList;
     }
 }

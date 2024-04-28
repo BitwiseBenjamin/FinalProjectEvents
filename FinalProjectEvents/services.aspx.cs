@@ -1,90 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Net;
 using Newtonsoft.Json;
-using System.Web.Services;
-using System.Web.Profile;
-using System.Web.Services.Description;
-using System.Web.Http;
-using System.IO;
-using System.Net.Http;
 using Newtonsoft.Json.Linq;
-using System.Xml;
-using System.Web.UI.HtmlControls;
-
-
+using LibraryPasswordEncrypt;
 
 namespace FinalProjectEvents
 {
-    public partial class _Default : System.Web.UI.Page
+    public partial class services : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Util.UserCookieIsValid())
-            {
-                // Redirect user to login page if not authenticated
-                Response.Redirect("Login.aspx");
-            }
-            else
-            {
-                if (!IsPostBack)
-                {
-                    LoadEvents();
-                    GetWeatherForecast();
-                }
-
-            }
 
         }
 
-        private void LoadEvents()
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(Server.MapPath("~/App_Data/Events.xml"));
 
-            var events = xmlDoc.DocumentElement.ChildNodes
-                          .Cast<XmlNode>()
-                          .Select(evt => new {
-                              Name = evt["Name"]?.InnerText,
-                              Date = evt["Date"]?.InnerText,
-                              Location = evt["Location"]?.InnerText
-                          });
-
-            foreach (var evt in events)
-            {
-                // Create a div box for each event
-                var eventBox = new HtmlGenericControl("div");
-                eventBox.Attributes["class"] = "event-box";
-
-                // Create the content for the div box
-                var eventName = new HtmlGenericControl("h3");
-                eventName.InnerText = evt.Name;
-                eventBox.Controls.Add(eventName);
-
-                var eventDate = new HtmlGenericControl("p");
-                eventDate.InnerText = "Date: " + evt.Date;
-                eventBox.Controls.Add(eventDate);
-
-                var eventLocation = new HtmlGenericControl("p");
-                eventLocation.InnerText = "Location: " + evt.Location;
-                eventBox.Controls.Add(eventLocation);
-
-                // Add the div box to the eventGrid div
-                eventGrid.Controls.Add(eventBox);
-            }
-        }
-
-
-        protected void GetWeatherForecast()
+        protected void GetWeatherForecast(object sender, EventArgs e)
         {
             try
             {
-                string areacode = "85281";
+                string areacode = areaCode.Value;
                 /* string apiUrl = "http://localhost:51987/Service1.svc/weatherforecast?areaCode=" + areaCode;
 
                  HttpWebRequest request = (HttpWebRequest)WebRequest.Create(apiUrl);
@@ -140,8 +82,8 @@ namespace FinalProjectEvents
                     // Convert the dictionary values to an array
                     var weatherArray = dailyWeather.Values.ToArray();
                     // Limit the weather array to the first 5 elements
-                    dynamic[] limit5WeatherArray = new dynamic[1];
-                    for (int i = 0; i < 1 && i < weatherArray.Length; i++)
+                    dynamic[] limit5WeatherArray = new dynamic[5];
+                    for (int i = 0; i < 5 && i < weatherArray.Length; i++)
                     {
                         limit5WeatherArray[i] = weatherArray[i];
                     }
@@ -167,7 +109,12 @@ namespace FinalProjectEvents
             }
         }
 
- 
+        protected void EncryptIt(object sender, EventArgs e)
+        {
+            string password = passToEncrypt.Value;
+            encryptedPassword.InnerText = PasswordEncryptor.Encrypt(password);
+        }
+
         protected void onSuccess(dynamic[] data)
         {
             // Process the successful response data
@@ -181,7 +128,7 @@ namespace FinalProjectEvents
                 string temp = forecast.main.temp;
                 string humidity = forecast.main.humidity;
 
-                forecastHtml += $"<div class=\"weather\"> {description} {((float.Parse(temp) - 273.15) * 9 / 5 + 32).ToString("F1")}F {humidity}% humidity </div>";
+                forecastHtml += $"<div>Date: {date}, Description: {description}, Temp: {temp}, Humidity: {humidity}</div>";
             }
 
             // Update the HTML element with ID "weatherForecast" with the forecastHtml
@@ -196,25 +143,67 @@ namespace FinalProjectEvents
             weatherResult.InnerText = $"Failed to get weather forecast: {error}";
         }
 
+
+        protected async void BtnGetNews_Click(object sender, EventArgs e)
+        {
+            var topics = NewsFocusTextBox.Text.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var articles = await FetchNewsAsync(topics);
+            UrlList.Items.Clear();
+            foreach (var article in articles)
+            {
+                ListItem item = new ListItem { Text = article, Value = article };
+                item.Attributes["class"] = "news-link";
+                item.Attributes["onclick"] = $"window.open('{article}', '_blank');";
+                UrlList.Items.Add(item);
+            }
+
+        }
+        private async Task<List<string>> FetchNewsAsync(string[] topics)
+        {
+            var results = new List<string>();
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("User-Agent", "emnlc/1.0");
+
+                foreach (string topic in topics)
+                {
+                    string apiUrl = $"https://newsapi.org/v2/everything?pageSize=10&q={topic}&apiKey=247752a4ffaf467b89bb293cb1a9ce36";
+
+                    try
+                    {
+                        HttpResponseMessage response = await client.GetAsync(apiUrl);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string jsonResponse = await response.Content.ReadAsStringAsync();
+                            JObject json = JObject.Parse(jsonResponse);
+                            var articles = json["articles"];
+
+                            foreach (var article in articles)
+                            {
+                                string url = article["url"].ToString();
+                                results.Add(url);
+                            }
+                        }
+                        else
+                        {
+                            // unsuccessful response
+                            string responseBody = await response.Content.ReadAsStringAsync();
+                            results.Add(responseBody);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Exception: {ex.Message}");
+                        results.Add("Exception occurred");
+                    }
+                }
+            }
+            return results;
+        }
+
         protected void btnReturnToDefault_Click(object sender, EventArgs e)
         {
-            Response.Redirect("services.aspx");
-        }
-
-        protected void btnMemberPage_Click(object sender, EventArgs e)
-        {
-            // Handle member page button click
-            Response.Redirect("Member.aspx");
-        }
-
-        protected void btnStaffPage_Click(object sender, EventArgs e)
-        {
-            // Handle staff page button click
-            Response.Redirect("Staff.aspx");
-        }
-
-        protected void btnEventsPage_Click(object sender, EventArgs e) {
-            Response.Redirect("Events.aspx");
+            Response.Redirect("Default.aspx");
         }
     }
 }

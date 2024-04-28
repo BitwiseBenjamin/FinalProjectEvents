@@ -9,6 +9,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:Button ID="btnReturnToDefault" runat="server" Text="Return to Default Page" OnClick="btnReturnToDefault_Click" />
             <h2>Your Information</h2>
             <asp:Label ID="lblMessage" runat="server" Visible="false" ForeColor="Red"></asp:Label>
             <!-- Display user information -->

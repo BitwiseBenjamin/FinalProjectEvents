@@ -10,4 +10,56 @@
     <Date>2024-04-17</Date>
     <Location>Tempe</Location>
   </Event>
+  <Event>
+    <Name>Coachella</Name>
+    <Date>2024-04-04</Date>
+    <Location>san fran cisco annyconnect</Location>
+  </Event>
+  <Event>
+    <Name>Dream stream</Name>
+    <Date>2024-04-10</Date>
+    <Location>twitch</Location>
+  </Event>
+  <Event>
+    <Name>Superbowl</Name>
+    <Date>2024-09-12</Date>
+    <Location>the bowl</Location>
+  </Event>
+  <Event>
+    <Name>Art day with the boys</Name>
+    <Date>
+    </Date>
+    <Location>
+    </Location>
+  </Event>
+  <Event>
+    <Name>Final Test</Name>
+    <Date>2024-05-11</Date>
+    <Location>sddf</Location>
+  </Event>
+  <Event>
+    <Name>5k Marathon</Name>
+    <Date>2024-05-11</Date>
+    <Location>newyork</Location>
+  </Event>
+  <Event>
+    <Name>Cat Parade</Name>
+    <Date>2024-08-15</Date>
+    <Location>japan</Location>
+  </Event>
+  <Event>
+    <Name>Diablo 3 rift</Name>
+    <Date>2024-08-15</Date>
+    <Location>my house</Location>
+  </Event>
+  <Event>
+    <Name>Party in the USA??</Name>
+    <Date>2024-08-23</Date>
+    <Location>DTs house?</Location>
+  </Event>
+  <Event>
+    <Name>Kiss concert</Name>
+    <Date>2024-08-23</Date>
+    <Location>phoenix</Location>
+  </Event>
 </Events>

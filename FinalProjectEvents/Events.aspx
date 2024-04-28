@@ -6,9 +6,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <h1>Events Page</h1>
-        <p>Emmanuel Cortes Castaneda</p>
-        <asp:Button ID="btnNewsPage" runat="server" Text="News Page" OnClick="btnNewsPage_Click" />
+        <h1>Manage your Events </h1>
+        <asp:Button ID="btnReturnToDefault" runat="server" Text="Return to Default Page" OnClick="btnReturnToDefault_Click" />
+
+       
         <h2>Create new event</h2>
         <div>
             <asp:Label ID="lblEventName" runat="server" AssociatedControlID="txtEventName" Text="Event Name:" />
@@ -22,15 +23,10 @@
             
             <asp:Button ID="btnAddEvent" runat="server" Text="Add Event" OnClick="CreateEvent_Click" />
         </div>
+         <h2>Delete event</h2>
+         <h2>All your events event</h2>
         <br />
-        <h2>Events List</h2>
-        <asp:GridView ID="GridViewEvents" runat="server" AutoGenerateColumns="False">
-            <Columns>
-                <asp:BoundField DataField="Name" HeaderText="Name" />
-                <asp:BoundField DataField="Date" HeaderText="Date" />
-                <asp:BoundField DataField="Location" HeaderText="Location" />
-            </Columns>
-        </asp:GridView>
+        
     </form>
 </body>
 </html>

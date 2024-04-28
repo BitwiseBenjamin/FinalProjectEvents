@@ -8,13 +8,13 @@ namespace FinalProjectEvents {
     public partial class Events : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
             if (!IsPostBack) {
-                LoadEvents();
+
             }
         }
 
         protected void CreateEvent_Click(object sender, EventArgs e) {
             AddEvent(txtEventName.Text, txtEventDate.Text, txtEventLocation.Text);
-            LoadEvents(); // reload grid 
+
         }
 
         private void AddEvent(string name, string date, string location) {
@@ -41,24 +41,10 @@ namespace FinalProjectEvents {
             xmlDoc.Save(Server.MapPath("~/App_Data/Events.xml"));
         }
 
-        private void LoadEvents() {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(Server.MapPath("~/App_Data/Events.xml"));
 
-            var events = xmlDoc.DocumentElement.ChildNodes
-                          .Cast<XmlNode>()
-                          .Select(evt => new {
-                              Name = evt["Name"]?.InnerText,
-                              Date = evt["Date"]?.InnerText,
-                              Location = evt["Location"]?.InnerText
-                          });
-
-            GridViewEvents.DataSource = events;
-            GridViewEvents.DataBind();
-        }
-
-        protected void btnNewsPage_Click(object sender, EventArgs e) {
-            Response.Redirect("News.aspx");
+        protected void btnReturnToDefault_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx");
         }
     }
 }

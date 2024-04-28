@@ -7,10 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FinalProjectEvents {
+namespace FinalProjectEvents
+{
 
 
-    public partial class _Default {
+    public partial class _Default
+    {
 
         /// <summary>
         /// form1 control.
@@ -22,48 +24,57 @@ namespace FinalProjectEvents {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// btnMemberPage control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMemberPage;
+        protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
-        /// btnStaffPage control.
+        /// Button2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStaffPage;
+        protected global::System.Web.UI.WebControls.Button Button2;
 
         /// <summary>
-        /// btnEventsPage control.
+        /// Button3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEventsPage;
+        protected global::System.Web.UI.WebControls.Button Button3;
 
         /// <summary>
-        /// gvServiceDirectory control.
+        /// Button4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvServiceDirectory;
+        protected global::System.Web.UI.WebControls.Button Button4;
 
         /// <summary>
-        /// ScriptManager1 control.
+        /// weatherResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl weatherResult;
+
+        /// <summary>
+        /// eventGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl eventGrid;
     }
 }

@@ -11,7 +11,7 @@ namespace FinalProjectEvents
 {
 
 
-    public partial class Member
+    public partial class services
     {
 
         /// <summary>
@@ -33,57 +33,84 @@ namespace FinalProjectEvents
         protected global::System.Web.UI.WebControls.Button btnReturnToDefault;
 
         /// <summary>
-        /// lblMessage control.
+        /// areaCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText areaCode;
 
         /// <summary>
-        /// lblUsername control.
+        /// weatherResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsername;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl weatherResult;
 
         /// <summary>
-        /// lblEmail control.
+        /// gvServiceDirectory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmail;
+        protected global::System.Web.UI.WebControls.GridView gvServiceDirectory;
 
         /// <summary>
-        /// txtNewUsername control.
+        /// passToEncrypt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewUsername;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText passToEncrypt;
 
         /// <summary>
-        /// txtNewEmail control.
+        /// encryptedPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewEmail;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl encryptedPassword;
 
         /// <summary>
-        /// btnUpdate control.
+        /// NewsFocusLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdate;
+        protected global::System.Web.UI.WebControls.Label NewsFocusLabel;
+
+        /// <summary>
+        /// NewsFocusTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox NewsFocusTextBox;
+
+        /// <summary>
+        /// BtnGetNews control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnGetNews;
+
+        /// <summary>
+        /// UrlList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.BulletedList UrlList;
     }
 }

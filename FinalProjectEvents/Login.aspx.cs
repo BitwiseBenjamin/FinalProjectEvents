@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
+using LibraryPasswordEncrypt;
 
 namespace FinalProjectEvents
 {
@@ -36,14 +37,17 @@ namespace FinalProjectEvents
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
+
+            var encryptedPassword = PasswordEncryptor.Encrypt(password);
+
             // Check if user exists in XML document
             // Check if user exists in XML document
-            if (Util.UserExists(username, password))
+            if (Util.UserExists(username, encryptedPassword))
             {
                 // Store username and password in a cookie
                 HttpCookie userCookie = new HttpCookie("UserCredentials");
                 userCookie["Username"] = username;
-                userCookie["Password"] = password;
+                userCookie["Password"] = encryptedPassword;
                 // Set cookie expiration date (optional)
                 userCookie.Expires = DateTime.Now.AddDays(1); // Example: expires in 1 day
                 Response.Cookies.Add(userCookie);
@@ -55,7 +59,7 @@ namespace FinalProjectEvents
             {
                 // Display error message if login fails
                 lblMessage.Visible = true;
-                lblMessage.Text = "Invalid username or password. Please try again.";
+                lblMessage.Text = "invalid user or password";
             }
         }
 

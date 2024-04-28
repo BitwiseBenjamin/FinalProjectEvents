@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
+using LibraryPasswordEncrypt;
 
 namespace FinalProjectEvents
 {
@@ -55,7 +56,15 @@ namespace FinalProjectEvents
             {
                 string username = userNode.SelectSingleNode("Username").InnerText;
                 string password = userNode.SelectSingleNode("Password").InnerText;
-                dtStaff.Rows.Add(username, password);
+                try
+                {
+                    var decryptedPassword = PasswordEncryptor.Decrypt(password);
+                    dtStaff.Rows.Add(username, decryptedPassword);
+                }
+                catch
+                {
+                    dtStaff.Rows.Add(username, password);
+                }
             }
 
             gvStaff.DataSource = dtStaff;
@@ -94,12 +103,46 @@ namespace FinalProjectEvents
 
             if (userNode != null)
             {
-                userNode.SelectSingleNode("Password").InnerText = newPassword;
+                var encryptedPass = PasswordEncryptor.Encrypt(newPassword);
+                userNode.SelectSingleNode("Password").InnerText = encryptedPass;
                 userNode.SelectSingleNode("Username").InnerText = username;
 
                 xmlDoc.Save(Server.MapPath("~/App_Data/Staff.xml"));
             }
         }
+
+        protected void Add(object sender, EventArgs e)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(Server.MapPath("~/App_Data/Staff.xml"));
+
+            string username = txtNewUsername.Text;
+            string password = txtNewPassword.Text;   
+
+            // Create a new user node
+            XmlNode newUserNode = xmlDoc.CreateElement("User");
+
+            // Create username and password elements
+            XmlNode usernameNode = xmlDoc.CreateElement("Username");
+            XmlNode passwordNode = xmlDoc.CreateElement("Password");
+
+            // Set inner text of username and password elements
+            usernameNode.InnerText = username;
+            var encryptedPass = PasswordEncryptor.Encrypt(password);
+            passwordNode.InnerText = encryptedPass;
+
+            // Append username and password elements to the user node
+            newUserNode.AppendChild(usernameNode);
+            newUserNode.AppendChild(passwordNode);
+
+            // Append the new user node to the XML document
+            xmlDoc.DocumentElement.AppendChild(newUserNode);
+
+            // Save the changes to the XML file
+            xmlDoc.Save(Server.MapPath("~/App_Data/Staff.xml"));
+            LoadStaffInformation();
+        }
+
 
 
     }

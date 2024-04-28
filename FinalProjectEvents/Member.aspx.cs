@@ -30,6 +30,10 @@ namespace FinalProjectEvents
             }
         }
 
+        protected void btnReturnToDefault_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx");
+        }
         private void DisplayUserInfo(string username)
         {
             // Load XML document

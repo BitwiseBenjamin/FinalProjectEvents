@@ -7,10 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FinalProjectEvents {
+namespace FinalProjectEvents
+{
 
 
-    public partial class Events {
+    public partial class Events
+    {
 
         /// <summary>
         /// form1 control.
@@ -22,13 +24,13 @@ namespace FinalProjectEvents {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// btnNewsPage control.
+        /// btnReturnToDefault control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNewsPage;
+        protected global::System.Web.UI.WebControls.Button btnReturnToDefault;
 
         /// <summary>
         /// lblEventName control.
@@ -92,14 +94,5 @@ namespace FinalProjectEvents {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddEvent;
-
-        /// <summary>
-        /// GridViewEvents control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewEvents;
     }
 }

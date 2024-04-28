@@ -30,7 +30,7 @@ namespace FinalProjectEvents {
                 client.DefaultRequestHeaders.Add("User-Agent", "emnlc/1.0");
 
                 foreach (string topic in topics) {
-                    string apiUrl = $"https://newsapi.org/v2/everything?pageSize=10&q={topic}&apiKey=247752a4ffaf467b89bb293cb1a9ce36";
+                    string apiUrl = $"https://newsapi.org/v2/everything?pageSize=5&q={topic}&apiKey=247752a4ffaf467b89bb293cb1a9ce36";
 
                     try {
                         HttpResponseMessage response = await client.GetAsync(apiUrl);

@@ -42,41 +42,39 @@ namespace FinalProjectEvents
 
         }
 
-        private void LoadEvents()
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(Server.MapPath("~/App_Data/Events.xml"));
+        private void LoadEvents() {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Server.MapPath("~/App_Data/Events.xml"));  // Adjust path as necessary
+            XmlNodeList eventNodes = doc.SelectNodes("/Events/Event");
 
-            var events = xmlDoc.DocumentElement.ChildNodes
-                          .Cast<XmlNode>()
-                          .Select(evt => new {
-                              Name = evt["Name"]?.InnerText,
-                              Date = evt["Date"]?.InnerText,
-                              Location = evt["Location"]?.InnerText
-                          });
-
-            foreach (var evt in events)
-            {
-                // Create a div box for each event
+            foreach (XmlNode eventNode in eventNodes) {
                 var eventBox = new HtmlGenericControl("div");
                 eventBox.Attributes["class"] = "event-box";
 
-                // Create the content for the div box
-                var eventName = new HtmlGenericControl("h3");
-                eventName.InnerText = evt.Name;
+                // Event Name as a hyperlink
+                var eventName = new HtmlAnchor();
+                string name = eventNode.SelectSingleNode("Name").InnerText;
+                eventName.HRef = $"EventDetails.aspx?eventName={HttpUtility.UrlEncode(name)}";
+                eventName.InnerText = name;
                 eventBox.Controls.Add(eventName);
 
+                // Event Date
                 var eventDate = new HtmlGenericControl("p");
-                eventDate.InnerText = "Date: " + evt.Date;
+                string date = eventNode.SelectSingleNode("Date").InnerText;
+                eventDate.InnerText = "Date: " + date;
                 eventBox.Controls.Add(eventDate);
 
+                // Event Location
                 var eventLocation = new HtmlGenericControl("p");
-                eventLocation.InnerText = "Location: " + evt.Location;
+                string location = eventNode.SelectSingleNode("Location").InnerText;
+                eventLocation.InnerText = "Location: " + location;
                 eventBox.Controls.Add(eventLocation);
 
-                // Add the div box to the eventGrid div
-                eventGrid.Controls.Add(eventBox);
+                // Add the div box to a placeholder or panel on your ASPX page
+                eventGrid.Controls.Add(eventBox); // Assume eventGrid is your PlaceHolder or Panel
             }
+
+
         }
 
 

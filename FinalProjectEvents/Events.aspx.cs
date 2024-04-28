@@ -8,43 +8,82 @@ namespace FinalProjectEvents {
     public partial class Events : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
             if (!IsPostBack) {
-
+                RetrieveUserEvents();
             }
         }
 
-        protected void CreateEvent_Click(object sender, EventArgs e) {
-            AddEvent(txtEventName.Text, txtEventDate.Text, txtEventLocation.Text);
+        private void RetrieveUserEvents() {
+            string username = getUsername();
 
+            if (username != "null") {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(Server.MapPath("~/App_Data/Events.xml")); // Assuming events.xml is in the same directory
+
+                XmlNodeList eventList = doc.SelectNodes("//Event[Host='" + username + "']");
+
+                string htmlContent = "";
+
+                if (eventList.Count > 0) {
+                    foreach (XmlNode eventNode in eventList) {
+                        string name = eventNode.SelectSingleNode("Name").InnerText;
+                        string date = eventNode.SelectSingleNode("Date").InnerText;
+                        string location = eventNode.SelectSingleNode("Location").InnerText;
+
+                        htmlContent += "<div class='event'>";
+                        htmlContent += "<div><strong>Name:</strong> " + name + "</div>";
+                        htmlContent += "<div><strong>Date:</strong> " + date + "</div>";
+                        htmlContent += "<div><strong>Location:</strong> " + location + "</div>";
+                        htmlContent += "</div>";
+
+
+                    }
+                }
+                else {
+                    htmlContent = "You have not created any events.";
+                }
+
+                // Set the content to the Literal control
+                litEvents.Text = htmlContent;
+            }
         }
 
-        private void AddEvent(string name, string date, string location) {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(Server.MapPath("~/App_Data/Events.xml"));
 
-            // new event node
-            XmlNode newEventNode = xmlDoc.CreateElement("Event");
+        private string getUsername() {
+            if (Request.Cookies["UserCredentials"] != null) {
+                string credentials = Request.Cookies["UserCredentials"].Value;
 
-            XmlNode nameNode = xmlDoc.CreateElement("Name");
-            nameNode.InnerText = name;
-            XmlNode dateNode = xmlDoc.CreateElement("Date");
-            dateNode.InnerText = date;
-            XmlNode locationNode = xmlDoc.CreateElement("Location");
-            locationNode.InnerText = location;
+                string[] pairs = credentials.Split('&');
+                string username = null;
 
-            // Append elements to the event node
-            newEventNode.AppendChild(nameNode);
-            newEventNode.AppendChild(dateNode);
-            newEventNode.AppendChild(locationNode);
+                foreach (string pair in pairs) {
+                    if (pair.StartsWith("Username=")) {
+                        username = pair.Substring("Username=".Length);
+                        break;
+                    }
+                }
 
-            xmlDoc.DocumentElement.AppendChild(newEventNode);
+                if (username != null) {
+                    return username;
 
-            xmlDoc.Save(Server.MapPath("~/App_Data/Events.xml"));
+                }
+                else {
+                    Response.Write("Username not found.");
+                    return "null";
+                }
+            }
+            else {
+                Response.Write("Cookie not found.");
+                return "";
+            }
         }
-
 
         protected void btnReturnToDefault_Click(object sender, EventArgs e)
         {
             Response.Redirect("Default.aspx");
+        }
+
+           protected void btnGoToCreateEvent_Click(object sender, EventArgs e) {
+            Response.Redirect("CreateEvent.aspx");
         }
     }
 }

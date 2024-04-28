@@ -62,4 +62,16 @@
     <Date>2024-08-23</Date>
     <Location>phoenix</Location>
   </Event>
+  <Event>
+    <Name>LePookie watch party</Name>
+    <Date>2024-04-29</Date>
+    <Location>my house</Location>
+    <Host>john_doe</Host>
+  </Event>
+  <Event>
+    <Name>graduation!</Name>
+    <Date>2024-05-04</Date>
+    <Location>Mountain America Stadium</Location>
+    <Host>john_doe</Host>
+  </Event>
 </Events>
